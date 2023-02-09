@@ -14,7 +14,7 @@ public class UI_MainImage : MonoBehaviour
         img = GetComponent<Image>();
     }
 
-    public void UpdateImage()
+    public void RefreshImage()
     {
         switch (GameManager.Instance().GetState())
         {

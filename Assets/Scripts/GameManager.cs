@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         mainImage.SetActive(true);
         buttonPanel.SetActive(true);
-        mainImage.GetComponent<UI_MainImage>().UpdateImage();
+        mainImage.GetComponent<UI_MainImage>().RefreshImage();
     }
 
     void Update()

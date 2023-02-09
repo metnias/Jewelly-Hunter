@@ -13,7 +13,7 @@ public class ButtonManager : MonoBehaviour
     {
         if (GameManager.Instance().GetState() == GameManager.GameState.Lose)
         {
-            nextButton.GetComponent<Button>().enabled = false;
+            nextButton.GetComponent<Button>().interactable = false;
         }
     }
 
