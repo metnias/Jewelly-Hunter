@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeGame()
     {
+        mainImage.transform.parent.gameObject.SetActive(true);
         mainImage.SetActive(true);
         buttonPanel.SetActive(false);
         state = GameState.Start;
