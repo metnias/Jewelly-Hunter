@@ -23,6 +23,7 @@ public class Player_Controller : MonoBehaviour
     private int wantToJump = 0;
     private const int GRACE = 5;
     private bool frozen = false;
+    public bool Grounded() => onGround == GRACE;
 
     private void Start()
     {
@@ -70,16 +71,16 @@ public class Player_Controller : MonoBehaviour
     {
         if (frozen) return;
         if (Physics2D.Linecast(transform.position, transform.position - (transform.up * 0.1f), groundLayer))
-            onGround = GRACE; // coyote time
+            onGround = GRACE;
         else if (onGround > 0) onGround--;
         float velX = rbody.velocity.x;
-        velX = Mathf.Lerp(velX, axisH * speed, onGround < GRACE ? 0.1f : 1f); // allow airbone control
+        velX = Mathf.Lerp(velX, axisH * speed, Grounded() ? 1f : 0.1f); // allow airbone control
         rbody.velocity = new Vector2(velX, rbody.velocity.y);
 
         if (wantToJump > 0)
         {
             wantToJump--;
-            if (onGround > 0)
+            if (onGround > 0) // coyote time
             {
                 wantToJump = 0;
                 rbody.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
