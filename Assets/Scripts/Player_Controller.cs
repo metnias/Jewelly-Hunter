@@ -29,11 +29,12 @@ public class Player_Controller : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         rbody.freezeRotation = true;
         animator = GetComponent<Animator>();
-        frozen = false;
+        frozen = true;
     }
 
     private void Update()
     {
+        frozen = !GameManager.Instance().Playing();
         var anim = animRun;
         // Move
         if (!frozen) axisH = Input.GetAxisRaw("Horizontal");
@@ -90,30 +91,27 @@ public class Player_Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Finish"))
         {
-            Die();
+            Win();
         }
         else if (collision.gameObject.CompareTag("Kill"))
         {
-            Win();
+            Die();
         }
     }
 
     private void Die()
     {
-        lockAnim = "Player_Pose";
-        frozen = true;
-        GameManager.Instance().GameOver();
-
-    }
-
-    private void Win()
-    {
         lockAnim = "Player_Hurt";
-        frozen = true;
-        GameManager.Instance().GameWin();
+        GameManager.Instance().GameOver();
 
         GetComponent<CapsuleCollider2D>().enabled = false;
         rbody.velocity = Vector2.zero;
         rbody.AddForce(Vector2.up * 15f, ForceMode2D.Impulse);
+    }
+
+    private void Win()
+    {
+        lockAnim = "Player_Pose";
+        GameManager.Instance().GameWin();
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject mainImage;
+    public GameObject buttonPanel;
+
     public static GameManager Instance() => _instance;
 
     private static GameManager _instance;
@@ -12,11 +15,29 @@ public class GameManager : MonoBehaviour
     {
         if (_instance == null) _instance = this;
         else if (_instance != this) Destroy(gameObject);
+        InitializeGame();
     }
 
     private void InitializeGame()
     {
-        playing = true;
+        mainImage.SetActive(true);
+        buttonPanel.SetActive(false);
+        state = GameState.Start;
+        Invoke(nameof(StartGame), 1f);
+    }
+
+    private void StartGame()
+    {
+        mainImage.SetActive(false);
+        state = GameState.Play;
+        Time.timeScale = 1f;
+    }
+
+    private void ShowEndGame()
+    {
+        mainImage.SetActive(true);
+        buttonPanel.SetActive(true);
+        mainImage.GetComponent<UI_MainImage>().UpdateImage();
     }
 
     void Update()
@@ -24,15 +45,28 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public bool playing;
+    public bool Playing() => state == GameState.Play;
+    public GameState GetState() => state;
+    private GameState state;
+
+    public enum GameState
+    {
+        Start,
+        Play,
+        Pause,
+        Win,
+        Lose
+    }
 
     public void GameWin()
     {
-        playing = false;
+        state = GameState.Win;
+        Invoke(nameof(ShowEndGame), 1f);
     }
 
     public void GameOver()
     {
-        playing = false;
+        state = GameState.Lose;
+        Invoke(nameof(ShowEndGame), 1f);
     }
 }
