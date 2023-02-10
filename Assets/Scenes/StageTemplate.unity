@@ -469,9 +469,9 @@ MonoBehaviour:
   subBackgroundLength: 19.2
   vertPos: 2
   vertCap: 4
+  lerpCapSpeed: 0.1
   horzPos: 2
   horzTurn: 5
-  lerpCapSpeed: 0.1
 --- !u!1 &423962598 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8632091688581866356, guid: 51dfcc33c0ca84b4f9c0aa4b941fd09a, type: 3}

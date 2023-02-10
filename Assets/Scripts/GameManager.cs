@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance() => _instance;
 
     private static GameManager _instance;
+
+    private TimeController timeCtrler;
 
     private void Start()
     {
@@ -44,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public bool Playing() => state == GameState.Play;
@@ -63,12 +62,16 @@ public class GameManager : MonoBehaviour
     public void GameWin()
     {
         state = GameState.Win;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) player.GetComponent<Player_Controller>().Win();
         Invoke(nameof(ShowEndGame), 1f);
     }
 
     public void GameOver()
     {
         state = GameState.Lose;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) player.GetComponent<Player_Controller>().Die();
         Invoke(nameof(ShowEndGame), 1f);
     }
 }

@@ -100,19 +100,19 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    private void Die()
+    internal void Die()
     {
         lockAnim = "Player_Hurt";
-        GameManager.Instance().GameOver();
+        if (GameManager.Instance().Playing()) GameManager.Instance().GameOver();
 
         GetComponent<CapsuleCollider2D>().enabled = false;
         rbody.velocity = Vector2.zero;
         rbody.AddForce(Vector2.up * 15f, ForceMode2D.Impulse);
     }
 
-    private void Win()
+    internal void Win()
     {
         lockAnim = "Player_Pose";
-        GameManager.Instance().GameWin();
+        if (GameManager.Instance().Playing()) GameManager.Instance().GameWin();
     }
 }

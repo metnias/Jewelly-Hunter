@@ -16,6 +16,8 @@ public class TimeController : MonoBehaviour
 
     void Start()
     {
+        if (gameTime == 0f) gameObject.SetActive(false);
+
         if (isCountDown) displayTime = gameTime;
         isTimeOver = false;
         curTime = 0f;
@@ -29,7 +31,7 @@ public class TimeController : MonoBehaviour
             if (GameManager.Instance().GetState() == GameManager.GameState.Start) RefreshTimer();
             return;
         }
-        if (isTimeOver) return;
+        if (isTimeOver) { GameManager.Instance().GameOver(); return; }
         curTime += Time.deltaTime;
         if (isCountDown)
         {
