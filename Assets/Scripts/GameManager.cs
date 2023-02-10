@@ -74,4 +74,15 @@ public class GameManager : MonoBehaviour
         if (player != null) player.GetComponent<Player_Controller>().Die();
         Invoke(nameof(ShowEndGame), 1f);
     }
+
+    private static int score = 0;
+
+    /// <summary>
+    /// Resets score
+    /// </summary>
+    public static void ResetScore() => score = 0;
+
+    public static void AddScore(int point) => score = Mathf.Max(score + point, 0);
+
+    public static int GetScore() => score;
 }
