@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +12,6 @@ public class UI_ScoreDisplay : MonoBehaviour
 
     void Update()
     {
-        display.text = GameManager.GetScore().ToString("000000");
+        display.text = GameManager.Instance().GetDisplayScore().ToString("000000");
     }
 }

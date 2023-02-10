@@ -102,7 +102,7 @@ public class Player_Controller : MonoBehaviour
 
     internal void Die()
     {
-        lockAnim = "Player_Hurt";
+        lockAnim = "Player_Hurt"; onGround = 0;
         if (GameManager.Instance().Playing()) GameManager.Instance().GameOver();
 
         GetComponent<CapsuleCollider2D>().enabled = false;

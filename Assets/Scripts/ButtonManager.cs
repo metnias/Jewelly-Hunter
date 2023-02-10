@@ -17,12 +17,11 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    public string curSceneName;
     public string nextSceneName;
 
     public void RequestRestartScene()
     {
-        SceneManager.LoadScene(curSceneName);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void RequestNextScene()
     {

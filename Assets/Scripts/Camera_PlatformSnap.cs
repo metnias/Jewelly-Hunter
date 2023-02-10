@@ -75,7 +75,7 @@ public class Camera_PlatformSnap : MonoBehaviour
 
         if (subBackground == null) return;
         relative = transform.position * -0.5f;
-        relative.y = Max(0f, relative.y); // to prevent goint to high
+        relative.y = Min(0f, relative.y); // to prevent goint to high
         relative.x %= subBackgroundLength;
         if (relative.x < 0f) relative.x += subBackgroundLength; // loop mod
         subBackground.transform.localPosition = relative;

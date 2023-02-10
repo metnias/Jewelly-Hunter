@@ -6,14 +6,10 @@ public class Gem_Item : MonoBehaviour
 {
     public int score = 10;
 
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (!collision.gameObject.CompareTag("Player")) return;
+        GameManager.Instance().AddScore(score);
+        gameObject.SetActive(false);
     }
 }

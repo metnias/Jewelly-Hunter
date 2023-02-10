@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         state = GameState.Win;
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) player.GetComponent<Player_Controller>().Win();
+        score += 100;
         Invoke(nameof(ShowEndGame), 1f);
     }
 
@@ -72,17 +73,22 @@ public class GameManager : MonoBehaviour
         state = GameState.Lose;
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) player.GetComponent<Player_Controller>().Die();
+        totalScore -= 50; if (totalScore < 0) totalScore = 0;
         Invoke(nameof(ShowEndGame), 1f);
     }
 
-    private static int score = 0;
+    #region Score
 
-    /// <summary>
-    /// Resets score
-    /// </summary>
-    public static void ResetScore() => score = 0;
+    private static int totalScore = 0;
+    private int score = 0;
 
-    public static void AddScore(int point) => score = Mathf.Max(score + point, 0);
+    public static void ResetTotalScore() => totalScore = 0;
 
-    public static int GetScore() => score;
+    public void AddScore(int point) => score = Mathf.Max(score + point, 0);
+
+    public int GetDisplayScore() => totalScore + score;
+
+    public void AddTotalScore() => totalScore += Instance().score;
+
+    #endregion Score
 }
